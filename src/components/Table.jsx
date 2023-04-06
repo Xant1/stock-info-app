@@ -1,6 +1,6 @@
-import MusicList from './MusicList';
+import DataList from './DataList';
 
-const Table = ({currentPosts }) => {
+const Table = ({ currentStocks, setData }) => {
   return (
     <div className='table-container'>
       <div>
@@ -8,47 +8,47 @@ const Table = ({currentPosts }) => {
           <thead>
             <tr>
               <th>
-                <span style={{ marginRight: 10 }}>Count</span>
+                <span>N</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>Ticker</span>
+                <span>Ticker</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>askPrice</span>
+                <span>askPrice</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>askSize</span>
+                <span>askSize</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>bidPrice</span>
+                <span>bidPrice</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>bidSize</span>
+                <span>bidSize</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>lastSalePrice</span>
+                <span>lastSalePrice</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>lastSaleSize</span>
+                <span>lastSaleSize</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>lastSaleTime</span>
+                <span>lastSaleTime</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>lastUpdated</span>
+                <span>lastUpdated</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>sector</span>
+                <span>sector</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>securityType</span>
+                <span>securityType</span>
               </th>
               <th>
-                <span style={{ marginRight: 10 }}>volume</span>
+                <span>volume</span>
               </th>
             </tr>
           </thead>
-          <MusicList data={currentPosts} />
+          <DataList data={currentStocks} setData={setData} />
         </table>
       </div>
     </div>

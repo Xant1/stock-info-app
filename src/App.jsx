@@ -1,58 +1,40 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-import axios from 'axios';
 import { Pagination } from 'antd';
 import Table from './components/Table';
-import Filter from './components/Filter';
+import fetchData from './API/fetchData';
 
 function App() {
   const [data, setData] = useState([]);
-  const [sortSelect, setSortSelect] = useState('');
-  const [count, setCount] = useState([1])
+
   //fetching data
   useEffect(() => {
-    const loadData = async () => {
-      const response = await axios.get(
-        'https://cloud.iexapis.com/stable/tops?token=sk_19e94b0acff34f42b04f6653ffb731e4'
-      );
-      setData(response.data);
+    (async () => {
+      const response = await fetchData();
+      setData(response.data.map((d, i) => ({ id: i + 1, order: i, ...d })));
       setTotal(response.data.length);
-      
-    };
-    loadData();
+    })();
   }, []);
-
-  console.log(count);
-  const sortedData = useMemo(() => {
-    if (sortSelect) {
-      return data.filter((item) =>
-        item.symbol.toLowerCase().includes(sortSelect)
-      );
-    }
-    return data;
-  }, [sortSelect, data]);
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [stocksPerPage, setStocksPerPage] = useState(10);
   const [total, setTotal] = useState('');
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = sortedData.slice(firstPostIndex, lastPostIndex);
+  const lastStockIndex = currentPage * stocksPerPage;
+  const firstStockIndex = lastStockIndex - stocksPerPage;
+  const currentStocks = data.slice(firstStockIndex, lastStockIndex);
 
   const onShowSizeChanger = (current, pageSize) => {
-    setPostsPerPage(pageSize);
+    setStocksPerPage(pageSize);
   };
 
   return (
     <div className='App'>
       <div>
-        <Filter sortSelect={sortSelect} setSortSelect={setSortSelect} />
-        <div></div>
-        <Table currentPosts={currentPosts} />
+        <Table currentStocks={currentStocks} setData={setData} />
         <Pagination
           onChange={(value) => setCurrentPage(value)}
-          pageSize={postsPerPage}
+          pageSize={stocksPerPage}
           total={total}
           current={currentPage}
           showSizeChanger
