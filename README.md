@@ -1,3 +1,7 @@
+- App for viewing information about stocks 
+- Javascript, React, Html, Css, Antd
+- Rest api guide - https://iexcloud.io/docs/api/#rest-how-to
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
